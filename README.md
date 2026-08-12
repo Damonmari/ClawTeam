@@ -31,6 +31,23 @@ Notes:
 - **Whisper key (optional):** most public videos have captions (free). Only videos without captions need a `GROQ_API_KEY` (preferred) or `OPENAI_API_KEY` in `~/.config/watch/.env`; without one, caption-less videos come back frames-only.
 - **Updating:** re-copy `skills/watch/` from the upstream repo over `.claude/skills/watch/`. On a local machine you can instead install the auto-updating plugin: `/plugin marketplace add bradautomates/claude-video` then `/plugin install watch@claude-video`.
 
+### /humanizer — remove AI writing patterns from prose
+
+Vendored from [blader/humanizer](https://github.com/blader/humanizer) (v2.9.1, MIT license) at `.claude/skills/humanizer/`. It loads automatically as a project skill in any Claude Code session on this repo. Pure Markdown, no dependencies.
+
+Rewrites text to remove the telltale signs of AI-generated writing (33 documented patterns, based on Wikipedia's "Signs of AI writing" guide) while preserving every fact. It never invents names, dates, or details that aren't in the source. Useful as a final pass on client-facing prose: formal correspondence, RFI narratives, claim submissions, reports.
+
+```
+Humanize this text: [paste draft]
+Humanize the prose in docs/reports/monthly-report.md   # rewrites the file in place
+```
+
+To match a specific person's writing style, include 2-3 paragraphs of their own writing as a sample before the text to rewrite.
+
+Notes:
+
+- **Updating:** re-copy `SKILL.md` from the upstream repo over `.claude/skills/humanizer/SKILL.md` and update the version noted here. See `docs/reports/blader-humanizer-analysis.md` for a full analysis of the upstream repo.
+
 ## Project Types
 
 1. **Data Centers** — High-power, mission-critical facilities with strict MEP coordination
