@@ -49,6 +49,25 @@ Notes:
 
 - **Updating:** re-copy `SKILL.md` from the upstream repo over `.claude/skills/humanizer/SKILL.md` and update the version noted here. See `docs/reports/blader-humanizer-analysis.md` for a full analysis of the upstream repo.
 
+### /ponytail — lazy senior dev mode for code
+
+Vendored from [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) (v4.9.0, MIT license) at `.claude/skills/ponytail/`, together with its over-engineering review pass at `.claude/skills/ponytail-review/`. Both load automatically as project skills in any Claude Code session on this repo. Pure Markdown, no dependencies.
+
+Before writing any code, the agent climbs a seven-rung ladder and stops at the first rung that holds: does this need to exist at all (YAGNI), is it already in this codebase, does the stdlib do it, does a native platform feature cover it, does an installed dependency solve it, can it be one line — only then the minimum code that works. It never trims input validation at trust boundaries, error handling that prevents data loss, security, or accessibility, which is what keeps our vendor-file parsers safe while staying small. Deliberate corner-cuts get a `ponytail:` comment naming the ceiling and the upgrade path. It governs code only (scripts in `tools/`, automation, anything programmatic); prose and documents are humanizer's side of the house.
+
+```
+Build a CSV takeoff parser          # applies automatically on coding tasks
+/ponytail                            # report the current level
+/ponytail lite|full|ultra            # set intensity for this session
+/ponytail-review                     # review the current diff for over-engineering only
+```
+
+Notes:
+
+- **Skill-tier install, no hooks:** the skill activates on coding tasks and by `/ponytail` invocation, but there is no always-on session injection, statusline badge, or persisted default mode. Anyone wanting the full experience can add the upstream plugin per-user: `/plugin marketplace add DietrichGebert/ponytail`, then `/plugin install ponytail@ponytail` (two separate prompts; needs `node` on PATH).
+- Upstream also ships `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, and `/ponytail-help`. We vendored only the two we use — add `ponytail-debt` once `tools/` accumulates enough `ponytail:` comments to need a ledger.
+- **Updating:** re-copy `skills/ponytail/SKILL.md` and `skills/ponytail-review/SKILL.md` from the upstream repo over the vendored copies and update the version noted here. See `docs/reports/dietrichgebert-ponytail-analysis.md` for a full analysis of the upstream repo, including the benchmark-correction story behind its numbers.
+
 ## Project Types
 
 1. **Data Centers** — High-power, mission-critical facilities with strict MEP coordination

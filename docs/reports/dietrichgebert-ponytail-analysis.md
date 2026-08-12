@@ -87,9 +87,13 @@ Most of what this repo ships is documents, but `tools/` is meant to grow scripts
 
 ## Clone and install
 
-The repo was cloned and reviewed at `/workspace/dietrichgebert/ponytail` (session-local; containers are ephemeral, so nothing durable lives there). Nothing has been vendored into ClawTeam yet — this report is the analyze-and-clone deliverable. If the team wants it, two options, in order of preference:
+The repo was cloned and reviewed at `/workspace/dietrichgebert/ponytail` (session-local; containers are ephemeral, so nothing durable lives there). The durable copy is vendored into this repo, following the same convention as `/watch` and `/humanizer`:
 
-- Per-user plugin (full experience: always-on activation, `/ponytail` level switching, subagent injection, statusline badge): `/plugin marketplace add DietrichGebert/ponytail` then `/plugin install ponytail@ponytail`, as two separate prompts. Requires `node` on PATH; auto-updates with upstream.
-- Vendor `skills/ponytail/` (and optionally `skills/ponytail-review/`) into `.claude/skills/`, the same convention as `/watch` and `/humanizer`. Zero dependencies and it loads in every session on this repo, but without the hooks it activates by description matching per task instead of being injected every turn, and there are no `/ponytail lite|full|ultra` switches. Update by re-copying and noting the version in the README.
+- `.claude/skills/ponytail/` — the core skill (SKILL.md verbatim from v4.9.0, plus the upstream MIT license).
+- `.claude/skills/ponytail-review/` — the over-engineering-only diff review, for the pre-merge pass on tool PRs.
 
-If we vendor, pin the version in the ClawTeam README (4.9.0 at review time) and re-run this analysis before major-version bumps — upstream moves fast.
+Both load automatically as project skills in any Claude Code session on this repo. This is the skill tier, deliberately: zero dependencies and no lifecycle hooks. It activates on coding tasks by description and via `/ponytail` invocation, but there is no always-on session injection, statusline badge, or persisted default mode. The other four upstream skills (audit, debt, gain, help) were left out — add `ponytail-debt` when `tools/` accumulates enough `ponytail:` comments to need a ledger.
+
+Anyone wanting the full plugin experience per-user: `/plugin marketplace add DietrichGebert/ponytail` then `/plugin install ponytail@ponytail`, as two separate prompts. Requires `node` on PATH; auto-updates with upstream.
+
+To update the vendored copies, re-copy the two SKILL.md files from the upstream repo and update the version noted in the ClawTeam README (4.9.0 at review time). Re-skim this analysis before major-version bumps — upstream moves fast.
