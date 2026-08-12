@@ -20,6 +20,10 @@
 2. Check docs/ for project-specific documentation
 3. See tools/ for any automation scripts
 
+## Claude Skills
+
+- **.claude/skills/watch/** — `/watch` lets Claude watch a video (YouTube/Loom/TikTok URL or local file) and answer questions about it. Usage: `/watch <url-or-path> [question]`. Vendored from [bradautomates/claude-video](https://github.com/bradautomates/claude-video) (MIT). Requires `ffmpeg` and `yt-dlp` on PATH — in a fresh remote session: `apt-get update && apt-get install -y ffmpeg && pip install yt-dlp`. A Whisper API key (`GROQ_API_KEY` in `~/.config/watch/.env`) is only needed for videos without captions.
+
 ## Contributing
 
 Team members can add documents, templates, and tools by creating a branch and submitting a pull request.
