@@ -8,6 +8,7 @@
 - **tools/** — Scripts and utilities to streamline construction project workflows
 - **templates/** — Reusable templates for day-to-day GC operations
 - **resources/** — Reference materials, code standards, and best practices
+- **.claude/skills/** — Claude Code skills for this project (e.g. `/watch` for video analysis — see [docs/watch-skill.md](docs/watch-skill.md))
 
 ## Project Types
 
