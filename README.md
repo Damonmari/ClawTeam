@@ -8,6 +8,26 @@
 - **tools/** — Scripts and utilities to streamline construction project workflows
 - **templates/** — Reusable templates for day-to-day GC operations
 - **resources/** — Reference materials, code standards, and best practices
+- **.claude/skills/** — Project-level skills for Claude Code (available in every session on this repo)
+
+## Claude Skills
+
+### /watch — let Claude watch a video
+
+Vendored from [bradautomates/claude-video](https://github.com/bradautomates/claude-video) (v0.2.0). Paste a video URL or a local file path and ask a question — Claude downloads it with `yt-dlp`, extracts scene-aware frames with `ffmpeg`, pulls a timestamped transcript (native captions first, Whisper API fallback), then reads the frames as images and answers from what's actually on screen.
+
+```
+/watch https://youtu.be/<video> summarize this
+/watch site-walk-recording.mp4 what's blocking the corridor on level 3?
+/watch bug-repro.mov what goes wrong in the UI?
+/watch https://youtu.be/<video> --start 2:15 --end 2:45   # focus on a section
+```
+
+Useful for site-walk recordings, drone footage review, screen recordings of software issues, training videos, and subcontractor submittal videos.
+
+**Requirements:** `ffmpeg` and `yt-dlp` on PATH (the skill's setup walks you through installing them on first run). Optional: a `GROQ_API_KEY` or `OPENAI_API_KEY` in `~/.config/watch/.env` for transcribing videos that have no captions (local files, most site recordings). Without a key, caption-less videos come back frames-only.
+
+**Note for Claude remote/web sessions:** the sandbox network proxy blocks YouTube and most video hosts, so URL-based watching generally only works in local Claude Code sessions. Local video files committed to or copied into the workspace work everywhere.
 
 ## Project Types
 
