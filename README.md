@@ -27,8 +27,9 @@ Paste a video URL or local file path and ask a question; Claude downloads it (yt
 
 Notes:
 
-- **Dependencies:** needs `ffmpeg` and `yt-dlp`. The skill checks on first use (`scripts/setup.py`) and walks through installation — in cloud sessions the container is fresh, so expect a one-time `apt-get install ffmpeg` + `pip install yt-dlp` per session.
-- **Whisper key (optional):** most public videos have captions (free). Only videos without captions need a `GROQ_API_KEY` (preferred) or `OPENAI_API_KEY` in `~/.config/watch/.env`; without one, caption-less videos come back frames-only.
+- **Dependencies:** needs `ffmpeg` and `yt-dlp`. In cloud (Claude Code on the web) sessions these are installed automatically at session start by `.claude/hooks/session-start.sh`, which also pre-configures the skill so it never blocks on first-run questions. On a local machine the skill checks on first use (`scripts/setup.py`) and walks through installation.
+- **Whisper key (optional):** most public videos have captions (free). Only videos without captions need a `GROQ_API_KEY` (preferred) or `OPENAI_API_KEY` — set it as an environment variable (cloud: environment settings; the skill reads process env first) or in `~/.config/watch/.env`. Without one, caption-less videos come back frames-only.
+- **URLs in cloud sessions need network access to the video host.** With a restricted environment network policy, `yt-dlp` gets a proxy 403 on sites like youtube.com — local video files still work fully. To watch URLs in cloud sessions, allow the video host in the environment's network policy (or run `/watch` on a local machine).
 - **Updating:** re-copy `skills/watch/` from the upstream repo over `.claude/skills/watch/`. On a local machine you can instead install the auto-updating plugin: `/plugin marketplace add bradautomates/claude-video` then `/plugin install watch@claude-video`.
 
 ## Project Types
